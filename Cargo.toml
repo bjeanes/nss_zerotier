@@ -1,0 +1,19 @@
+[package]
+name = "nss_zerotier"
+version = "0.1.0"
+authors = ["Bo Jeanes <me@bjeanes.com>"]
+keywords = ["libnss", "nss", "zerotier"]
+edition = "2018"
+
+[lib]
+name = "nss_zerotier"
+crate-type = [ "cdylib" ]
+
+[dependencies]
+libnss = { git = "https://github.com/bjeanes/libnss-rs" }
+# libnss = { path = "../libnss-rs/libnss" }
+libc = "0.2.0"
+lazy_static = "1.3.0"
+paste = "0.1"
+log = "0.4.8"
+env_logger = "0.6.2"
