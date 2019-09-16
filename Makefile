@@ -12,7 +12,7 @@ INSTALL_NAME = libnss_zerotier.so.2
 COLOR ?= always # Valid COLOR options: {always, auto, never}
 CARGO = cargo --color $(COLOR)
 
-.PHONY: all build-release clean install
+.PHONY: all build-release clean install docker
 
 all: clean build-release
 
@@ -26,3 +26,7 @@ install:
 	install -m755 -d $(DESTDIR)$(libprefix)/
 	install -m644 $(SHARED_OBJECT) $(DESTDIR)$(libprefix)/$(INSTALL_NAME)
 	ldconfig -n $(DESTDIR)$(libprefix)/
+
+docker:
+	docker build -t libnss_zerotier .
+	docker run -it --entrypoint bash libnss_zerotier
