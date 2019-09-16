@@ -44,7 +44,8 @@ $ getent -s zerotier hosts nas.zt
 10.144.70.159	nas.home.zt nas.zt
 ```
 
-To enable the `zerotier` NSS module system-wide, you'll need to edit `/etc/nsswitch.conf` and edit the `hosts` entry. For example:
+To enable the `zerotier` NSS module system-wide, you'll need to edit `/etc/nsswitch.conf` and edit the `hosts` entry.
+For example:
 
 ``` diff
 # ...
@@ -57,6 +58,22 @@ publickey: files
 networks: files
 # ...
 ```
+
+## Compatibility
+
+This should (once implemented) work on any operating system which uses [Name Service Switch](https://en.wikipedia.org/wiki/Name_Service_Switch),
+but I am not yet familiar with any potential variations in the glibc representation for the required callbacks and 
+data structures.
+
+In theory, that means Linux and BSD flavours should be easily supported. I personally am building this on an ArchLinux
+machine.
+
+I know macOS has some facilities for custom resolvers but I also know it is not based on NSS. Potentially, this could
+eventually offer some equivalent there but it is not currently a goal.
+
+## Alternatives
+
+* https://github.com/jjsarton/zt_nss
 
 ## License
 
