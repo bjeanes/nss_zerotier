@@ -14,20 +14,24 @@ It will read the ZT token from the following places, in the following order:
 1. [ ] `$HOME/.zeroTierOneAuthToken`, if present and readable by current user
 1. [ ] `/var/lib/zerotier-one/authtoken.secret`, if present and readable by current user
 
-Other than the environment variable, these are the same places that `zerotier-one` and `zerotier-cli` check. I am not 
-scurrently aware of any environment variable which the ZeroTier tools check, but if there is one, this will be adjusted to align.
+Other than the environment variable, these are the same places that `zerotier-one` and `zerotier-cli` check. I am not
+currently aware of any environment variable which the ZeroTier tools check, but if there is one, this will be adjusted
+to align.
 
 ## Installation
 
 ``` sh-session
-$ cargo build --release
+$ make
    Compiling ...
    Compiling nss_zerotier v0.1.0 (/home/bjeanes/Code/nss_zerotier)
     Finished release [optimized] target(s) in 11.08s
-$ sudo install -m 0644 target/release/libnss_zerotier.so /usr/lib/libnss_zerotier.so.2
+$ sudo make install
+install -m755 -d /usr/lib/
+install -m644 target/release/libnss_zerotier.so /usr/lib/libnss_zerotier.so.2
+ldconfig -n /usr/lib/
 ```
 
-* [ ] **TODO**: provide a `Makefile`
+* [x] **TODO**: provide a `Makefile`
 * [ ] **TODO**: pre-compile releases and attach to [GitHub Releases](https://github.com/bjeanes/nss_zerotier/releases)
 * [ ] **TODO**: package as an AUR for ArchLinux
 
@@ -37,7 +41,7 @@ After installation, you should be able to query the database using `getent`:
 
 ``` sh-session
 $ getent -s zerotier hosts
-10.144.17.130	vorpal.home.zt vorpal.zt 
+10.144.17.130	vorpal.home.zt vorpal.zt
 10.144.119.0	tumtum.home.zt tumtum.zt
 10.144.70.159	nas.home.zt nas.zt
 $ getent -s zerotier hosts nas.zt
@@ -62,7 +66,7 @@ networks: files
 ## Compatibility
 
 This should (once implemented) work on any operating system which uses [Name Service Switch](https://en.wikipedia.org/wiki/Name_Service_Switch),
-but I am not yet familiar with any potential variations in the glibc representation for the required callbacks and 
+but I am not yet familiar with any potential variations in the glibc representation for the required callbacks and
 data structures.
 
 In theory, that means Linux and BSD flavours should be easily supported. I personally am building this on an ArchLinux
