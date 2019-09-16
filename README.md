@@ -4,8 +4,13 @@ A NSS module to allow host lookup from joined ZeroTier networks
 
 This is just getting started, but the idea is that it will return results only to `*.zt` requests under the following logic:
 
+* [ ] `<nodeid>.zt` - the host with `<nodeid>` as its Node ID in any network to which the current machine belongs.
 * [ ] `<host>.zt` - the first member found with `<host>` as its name in any network to which the current machine belongs.
+  **NOTE**: The "name" in ZeroTier Central must be a valid hostname (which
+  ZeroTier Central does not enforce).
 * [ ] `<host>.<network>.zt` - the first member found in `<network>` with `<host>` as its name.
+  **NOTE**: The "names" in ZeroTier Central must both form a valid hostname in
+  combination (which ZeroTier Central does not enforce).
 * [ ] `localhost.zt` - special case to return the addresses for the current machine (maybe, still thinking on this)
 
 It will read the ZT token from the following places, in the following order:
@@ -41,11 +46,11 @@ After installation, you should be able to query the database using `getent`:
 
 ``` sh-session
 $ getent -s zerotier hosts
-10.144.17.130	vorpal.home.zt vorpal.zt
-10.144.119.0	tumtum.home.zt tumtum.zt
-10.144.70.159	nas.home.zt nas.zt
+10.144.17.130	d37fa4928f.zt vorpal.home.zt vorpal.zt
+10.144.119.0	124df28d26.zt tumtum.home.zt tumtum.zt
+10.144.70.159	68f86f5d48.zt nas.home.zt nas.zt
 $ getent -s zerotier hosts nas.zt
-10.144.70.159	nas.home.zt nas.zt
+10.144.70.159	68f86f5d48.zt nas.home.zt nas.zt
 ```
 
 To enable the `zerotier` NSS module system-wide, you'll need to edit `/etc/nsswitch.conf` and edit the `hosts` entry.
