@@ -83,6 +83,7 @@ eventually offer some equivalent there but it is not currently a goal.
 ## Alternatives
 
 * https://github.com/jjsarton/zt_nss
+* https://github.com/uxbh/ztdns
 
 ## License
 
